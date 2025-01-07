@@ -1,36 +1,113 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Crypto.com Market Data Dashboard
+
+A real-time cryptocurrency trading dashboard built with Next.js that displays order books and candlestick charts from Crypto.com's WebSocket API.
+
+## Features
+
+- Real-time order book data for 6 trading pairs
+- Live 1-minute candlestick chart for BTCUSD-PERP using ApexCharts
+- WebSocket connection with automatic reconnection
+- Efficient data handling with throttling
+- Responsive design with Tailwind CSS
+
+## Tech Stack
+
+- **Framework:** Next.js 14
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **Charting:** React ApexCharts
+- **State Management:** React Context
+- **WebSocket:** Native WebSocket API
+- **Performance:** Throttling, Memoization
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18.x or later
+- npm or yarn
+
+### Installation
 
 ```bash
+# Clone the repository
+git clone https://github.com/yourusername/crypto-market-dashboard.git
+
+# Install dependencies
+npm install
+
+# Create environment variables
+cp .env.example .env.local
+
+# Start development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Production Build
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build
+npm start
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project Structure
 
-## Learn More
+```
+src/
+├── app/                   # Next.js app router
+├── components/           # React components
+│   ├── OrderBook.tsx
+│   └── CandlestickChart.tsx
+├── contexts/             # React contexts
+│   └── WebSocketContext.tsx
+├── hooks/               # Custom hooks
+│   ├── useKline.ts
+│   └── useWebSocket.ts
+├── types/               # TypeScript types
+└── utils/               # Utility functions
+```
 
-To learn more about Next.js, take a look at the following resources:
+## WebSocket Implementation
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The application maintains a persistent WebSocket connection to Crypto.com's market data API with the following features:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Automatic reconnection on disconnection
+- Heartbeat message handling
+- Message throttling for performance
+- Efficient order book updates
 
-## Deploy on Vercel
+## Chart Implementation
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The candlestick chart is implemented using React ApexCharts with the following features:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Real-time updates
+- Custom theme configuration
+- Responsive design
+- Time-based x-axis
+- Price-based y-axis with 4 decimal precision
+- Custom tooltip formatting
+
+## Performance Optimizations
+
+- WebSocket message throttling
+- Memoized components
+- Efficient order book updates
+- React.memo for heavy components
+- Dynamic imports for ApexCharts
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- [Crypto.com API Documentation](https://exchange-docs.crypto.com/exchange/v1/rest-ws/index.html)
+- [ApexCharts Documentation](https://apexcharts.com/docs/react-charts/)
